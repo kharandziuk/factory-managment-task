@@ -1,6 +1,6 @@
 # Intro
 
-This test must be done in NodeJs, TypeScript is a plus. add unit tests please. For any doubts please send me an e-mail at dchavez@qwic.nl
+This assignment must be done in NodeJs, TypeScript is a plus and Unit test extra points. For any doubts please send me an e-mail at dchavez@qwic.nl
 
 #Factory Management
 In our factory, you are responsible for planning the usage of assembly line for our Supply Chain. ​
