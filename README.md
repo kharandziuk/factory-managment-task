@@ -28,8 +28,8 @@ the assembly line.
 
 - Production D starts on day 9 and ends on day 11
 
-In this example, it’s not possible to carry out all the productions because the periods for B and C overlap. 
-3 productions maximum can be carried out: A, D and C.
+In this example, it’s not possible to carry out all the productions because the periods for B,C and D overlap. 
+3 productions maximum can be carried out: A D, and C.
 
 ### Constraints
 
@@ -65,7 +65,7 @@ startingDay > current date
 #### Output
 ```
 {
-    "productionCycle" : 3
+    "productionCycle" : 2
 }
 ```
 #### Input
