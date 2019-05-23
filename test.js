@@ -5,11 +5,10 @@ const countRanges = (ranges) => {
   const { count } = ranges
     .sort((a, b) => a[0] - b[0])
     .reduce(({offset, count}, next)  => {
-      console.log(offset, count, next)
-      if(areRangesIntersect([-1, offset], next)) {
-        return { offset: next[1], count }
-      } else {
-        return { offset: next[1], count: count + 1 }
+      const isIntersected = areRangesIntersect([-1, offset], next)
+      return {
+        offset: Math.max(offset, next[1]),
+        count: isIntersected ? count : count + 1
       }
     },
     {
@@ -137,11 +136,16 @@ it('countRanges: wo intersection', () => {
   assert.equal(result, 2)
 })
 
-it('countRanges: wo intersection', () => {
+it('countRanges: second sample ', () => {
   const result = countRanges([
     [ 0, 4 ], [ 6, 7 ], [ 21, 25 ], [ 13, 21 ], [ 8, 13 ]
   ])
   assert.equal(result, 3)
 })
-
+it('countRanges: first sample', () => {
+  const result = countRanges([ 
+      [ 0, 4 ], [ 7, 13 ], [ 13, 18 ], [ 7, 9 ] 
+  ])
+  assert.equal(result, 2)
+})
 
