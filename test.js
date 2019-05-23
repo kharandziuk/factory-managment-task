@@ -1,8 +1,27 @@
 const { assert } = require('chai')
 const moment = require('moment')
 
+const countRanges = (ranges) => {
+  const { count } = ranges
+    .sort((a, b) => a[0] - b[0])
+    .reduce(({offset, count}, next)  => {
+      console.log(offset, count, next)
+      if(areRangesIntersect([-1, offset], next)) {
+        return { offset: next[1], count }
+      } else {
+        return { offset: next[1], count: count + 1 }
+      }
+    },
+    {
+      count: 0,
+      offset: -1
+    })
+  return count
+}
+
 const solution = (input) => {
-  return { productionCycle: 2 }
+  const ranges = parse(input)
+  return { productionCycle: countRanges(ranges) }
 }
 
 const parse = (input) => {
@@ -62,7 +81,7 @@ it('can solve the second sample input', () =>{
         "duration": 6
       }
   ])
-  assert.deepEqual(result, { productionCycle: 4 })
+  assert.deepEqual(result, { productionCycle: 3 })
 })
 
 it('can parser the input', () =>{
@@ -81,3 +100,48 @@ it('can parser the input', () =>{
       [4, 6]
   ])
 })
+
+const areRangesIntersect = (a, b) => {
+  const minRange = a[0] < b[0] ? a : b
+  const maxRange = (minRange == a ? b : a)
+  return !(minRange[1] < maxRange[0])
+}
+
+it('areRangesIntersect: yes', () => {
+  const result = areRangesIntersect([1, 2], [2, 3])
+  assert.isTrue(result)
+})
+
+it('areRangesIntersect: no', () => {
+  const result = areRangesIntersect([1, 2], [3, 4])
+  assert.isFalse(result)
+})
+
+it('countRanges: with intersection', () => {
+  const result = countRanges([[1, 2], [2, 3]])
+  assert.equal(result, 1)
+})
+
+it('countRanges: 1', () => {
+  const result = countRanges([[1, 2]])
+  assert.equal(result, 1)
+})
+
+it('countRanges: 0', () => {
+  const result = countRanges([])
+  assert.equal(result, 0)
+})
+
+it('countRanges: wo intersection', () => {
+  const result = countRanges([[1, 2], [3, 4]])
+  assert.equal(result, 2)
+})
+
+it('countRanges: wo intersection', () => {
+  const result = countRanges([
+    [ 0, 4 ], [ 6, 7 ], [ 21, 25 ], [ 13, 21 ], [ 8, 13 ]
+  ])
+  assert.equal(result, 3)
+})
+
+
