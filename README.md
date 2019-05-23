@@ -1,7 +1,3 @@
-# Intro
-
-This assignment must be done in NodeJs, TypeScript is a plus and Unit test extra points. For any doubts please send me an e-mail at dchavez@qwic.nl
-
 #Factory Management
 In our factory, you are responsible for planning the usage of assembly line for our Supply Chain. ​
 Therefore you've decided to organize things a bit by planning everybody’s tasks. The logic is simple: 
